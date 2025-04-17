@@ -587,6 +587,32 @@ void Application::OnClockTimer() {
                     char time_str[64];
                     strftime(time_str, sizeof(time_str), "%H:%M  ", localtime(&now));
                     Board::GetInstance().GetDisplay()->SetStatus(time_str);
+                    
+                    // 根据时间设置不同的表情
+                    struct tm *timeinfo = localtime(&now);
+                    int hour = timeinfo->tm_hour;
+                    auto display = Board::GetInstance().GetDisplay();
+                    
+                    // 根据时间段选择不同的表情
+                    if (hour >= 5 && hour < 9) {
+                        // 早晨5-9点：清醒、振奋
+                        display->SetEmotion("happy");
+                    } else if (hour >= 9 && hour < 12) {
+                        // 上午9-12点：专注、思考
+                        display->SetEmotion("thinking");
+                    } else if (hour >= 12 && hour < 14) {
+                        // 中午12-14点：放松、享受
+                        display->SetEmotion("relaxed");
+                    } else if (hour >= 14 && hour < 18) {
+                        // 下午14-18点：自信、专注
+                        display->SetEmotion("confident");
+                    } else if (hour >= 18 && hour < 22) {
+                        // 晚上18-22点：愉快、放松
+                        display->SetEmotion("cool");
+                    } else if (hour >= 22 || hour < 5) {
+                        // 夜间22-5点：困倦、休息
+                        display->SetEmotion("sleepy");
+                    }
                 });
             }
         }
