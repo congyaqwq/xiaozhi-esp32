@@ -37,6 +37,10 @@ public:
     inline bool input_enabled() const { return input_enabled_; }
     inline bool output_enabled() const { return output_enabled_; }
 
+    esp_err_t WritePublic(const int16_t* data, size_t samples) {
+        return this->Write(data, samples);
+    }
+
 protected:
     i2s_chan_handle_t tx_handle_ = nullptr;
     i2s_chan_handle_t rx_handle_ = nullptr;

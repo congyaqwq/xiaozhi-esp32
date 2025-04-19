@@ -9,6 +9,8 @@
 #include "font_awesome_symbols.h"
 #include "iot/thing_manager.h"
 #include "assets/lang_config.h"
+#include "bluetooth/bluetooth_a2dp_sink.h"
+#include "sdkconfig.h" // Required for Kconfig options
 
 #include <cstring>
 #include <esp_log.h>
@@ -357,6 +359,14 @@ void Application::Start() {
         reference_resampler_.Configure(codec->input_sample_rate(), 16000);
     }
     codec->Start();
+
+#ifdef CONFIG_ENABLE_BLUETOOTH_A2DP_SINK
+    // Initialize Bluetooth A2DP Sink if enabled
+    ESP_LOGI(TAG, "Bluetooth A2DP Sink is enabled, initializing...");
+    bluetooth_a2dp_sink_init();
+#else
+    ESP_LOGI(TAG, "Bluetooth A2DP Sink is disabled.");
+#endif
 
     xTaskCreatePinnedToCore([](void* arg) {
         Application* app = (Application*)arg;

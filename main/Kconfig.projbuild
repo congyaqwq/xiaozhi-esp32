@@ -164,6 +164,12 @@ choice BOARD_TYPE
         bool "元控·青春"
 endchoice
 
+config ENABLE_BLUETOOTH_A2DP_SINK
+    bool "Enable Bluetooth A2DP Sink"
+    default n
+    help
+        Enable Bluetooth A2DP Sink functionality to receive audio from other devices.
+
 choice DISPLAY_OLED_TYPE
     depends on BOARD_TYPE_BREAD_COMPACT_WIFI || BOARD_TYPE_BREAD_COMPACT_ML307 || BOARD_TYPE_BREAD_COMPACT_ESP32
     prompt "OLED Type"
