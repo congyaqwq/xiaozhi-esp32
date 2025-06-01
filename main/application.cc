@@ -63,6 +63,11 @@ Application::~Application() {
 }
 
 void Application::CheckNewVersion() {
+
+    // 直接跳过版本检查和升级
+    ESP_LOGI(TAG, "OTA disabled by user modification");
+    xEventGroupSetBits(event_group_, CHECK_NEW_VERSION_DONE_EVENT);
+    return;
     const int MAX_RETRY = 10;
     int retry_count = 0;
     int retry_delay = 10; // 初始重试延迟为10秒
