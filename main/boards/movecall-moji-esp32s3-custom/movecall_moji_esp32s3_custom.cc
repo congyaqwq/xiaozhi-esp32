@@ -19,7 +19,7 @@
     #include "driver/gpio.h"
     #include "driver/spi_master.h"
 
-    #define TAG "MovecallMojiESP32S3"
+    #define TAG "MovecallMojiESP32S3Custom"
 
     LV_FONT_DECLARE(font_puhui_20_4);
     LV_FONT_DECLARE(font_awesome_20_4);
@@ -50,7 +50,7 @@
         }
     };
 
-    class MovecallMojiESP32S3 : public WifiBoard {
+    class MovecallMojiESP32S3Custom : public WifiBoard {
     private:
         i2c_master_bus_handle_t codec_i2c_bus_;
         Button boot_button_;
@@ -127,13 +127,8 @@
             ESP_ERROR_CHECK(esp_lcd_panel_mirror(panel_handle, false, false));
             ESP_ERROR_CHECK(esp_lcd_panel_disp_on_off(panel_handle, true)); 
 
-            display_ = new SpiLcdDisplay(io_handle, panel_handle,
-                                        DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_OFFSET_X, DISPLAY_OFFSET_Y, DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y, DISPLAY_SWAP_XY,
-                                        {
-                                            .text_font = &font_puhui_20_4,
-                                            .icon_font = &font_awesome_20_4,
-                                            .emoji_font = font_emoji_64_init(),
-                                        });
+            display_ = new CustomLcdDisplay(io_handle, panel_handle,
+                                        DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_OFFSET_X, DISPLAY_OFFSET_Y, DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y, DISPLAY_SWAP_XY);
         }
 
         void InitializeButtons() {
@@ -154,7 +149,7 @@
         }
 
     public:
-        MovecallMojiESP32S3() : boot_button_(BOOT_BUTTON_GPIO) {  
+        MovecallMojiESP32S3Custom() : boot_button_(BOOT_BUTTON_GPIO) {  
             InitializeCodecI2c();
             InitializeSpi();
             InitializeSt7789Display();
@@ -185,4 +180,4 @@
         }
     };
 
-    DECLARE_BOARD(MovecallMojiESP32S3);
+    DECLARE_BOARD(MovecallMojiESP32S3Custom);
