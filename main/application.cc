@@ -927,6 +927,7 @@ void Application::SetDeviceState(DeviceState state) {
 
     auto& board = Board::GetInstance();
     auto display = board.GetDisplay();
+    auto backlight = Board::GetInstance().GetBacklight();
     auto led = board.GetLed();
     led->OnStateChanged();
     switch (state) {
@@ -936,6 +937,7 @@ void Application::SetDeviceState(DeviceState state) {
             display->SetEmotion("neutral");
             audio_processor_->Stop();
             wake_word_->StartDetection();
+            backlight->SetBrightness(20, false);
             break;
         case kDeviceStateConnecting:
             display->SetStatus(Lang::Strings::CONNECTING);
@@ -946,6 +948,7 @@ void Application::SetDeviceState(DeviceState state) {
         case kDeviceStateListening:
             display->SetStatus(Lang::Strings::LISTENING);
             display->SetEmotion("neutral");
+            backlight->RestoreBrightness();
             // Update the IoT states before sending the start listening command
 #if CONFIG_IOT_PROTOCOL_XIAOZHI
             UpdateIotStates();
