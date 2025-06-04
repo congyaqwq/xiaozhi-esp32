@@ -1,9 +1,10 @@
 #ifndef _BOARD_CONFIG_H_
 #define _BOARD_CONFIG_H_
 
+// Movecall Moji configuration
+
 #include <driver/gpio.h>
 
-// 音频配置保持不变
 #define AUDIO_INPUT_SAMPLE_RATE  24000
 #define AUDIO_OUTPUT_SAMPLE_RATE 24000
 
@@ -21,26 +22,23 @@
 #define BUILTIN_LED_GPIO        GPIO_NUM_21
 #define BOOT_BUTTON_GPIO        GPIO_NUM_0
 
-// 屏幕参数
 #define DISPLAY_WIDTH   240
 #define DISPLAY_HEIGHT  240
-#define DISPLAY_MIRROR_X false
+#define DISPLAY_MIRROR_X true
 #define DISPLAY_MIRROR_Y false
 #define DISPLAY_SWAP_XY false
 
 #define DISPLAY_OFFSET_X  0
 #define DISPLAY_OFFSET_Y  0
 
-// 背光引脚（LEDK 连接 GND，LEDA 用恒流源驱动，建议使用 MOS 控制）
 #define DISPLAY_BACKLIGHT_PIN GPIO_NUM_3
 #define DISPLAY_BACKLIGHT_OUTPUT_INVERT false
 
-// SPI 引脚配置（参考 PDF 引脚）：
-#define DISPLAY_SPI_SCLK_PIN    GPIO_NUM_16  // 对应屏幕 SCL
-#define DISPLAY_SPI_MOSI_PIN    GPIO_NUM_17  // 对应屏幕 SDA
-#define DISPLAY_SPI_CS_PIN      GPIO_NUM_15  // 对应屏幕 CS
-#define DISPLAY_SPI_DC_PIN      GPIO_NUM_7   // 对应屏幕 D/C
-#define DISPLAY_SPI_RESET_PIN   GPIO_NUM_18  // 对应屏幕 RESET
+#define DISPLAY_SPI_SCLK_PIN    GPIO_NUM_16
+#define DISPLAY_SPI_MOSI_PIN    GPIO_NUM_17
+#define DISPLAY_SPI_CS_PIN      GPIO_NUM_15
+#define DISPLAY_SPI_DC_PIN      GPIO_NUM_7
+#define DISPLAY_SPI_RESET_PIN   GPIO_NUM_18
 
 #define DISPLAY_SPI_SCLK_HZ     (40 * 1000 * 1000)
 
